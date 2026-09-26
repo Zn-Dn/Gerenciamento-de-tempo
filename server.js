@@ -82,24 +82,28 @@ async function criarUsuario() {
 
 await criarUsuario();
 
-function autenticar(req,res,next){
-    const token = req.headers.authorization.split('')[1];
-    if(!token){
-        return res.status(401).json({erro:'Token nao fornecido'})
-    
-    
-        try{
-            req.usuario = jwt.verify(token,process.env.JWT_SECRET)
-            next()
-        }
-        catch{
-            res.status(401).json({erro:'Token invalido ou expirado'})
-        }
+function autenticar(req, res, next) {
+    const autorizacao = req.headers.authorization;
 
+    if (!autorizacao) {
+        return res.status(401).json({ erro: 'Token nao fornecido' });
+    }
+
+    const token = autorizacao.split(' ')[1];
+
+    if (!token) {
+        return res.status(401).json({ erro: 'Token nao fornecido' });
+    }
+
+    try {
+        req.usuario = jwt.verify(token, process.env.JWT_SECRET);
+        next();
+    } catch {
+        res.status(401).json({ erro: 'Token invalido ou expirado' });
     }
 }
 
-app.post('/login',autenticar, async (req, res) => {
+app.post('/login', async (req, res) => {
     try {
         const { email, senha } = req.body;
 
