@@ -29,7 +29,7 @@ async function enviarReqDeBusca() {
     const nomeDigitado = InputPesquisa?.value ?? "";
 
     const respostaDoBack = await fetch(
-        `http://localhost:3000/encontraMotorista?nomeDoCliente=${encodeURIComponent(nomeDigitado)}`
+        `/encontraMotorista?nomeDoCliente=${encodeURIComponent(nomeDigitado)}`
     );
 
     clearInterval(intervalo);   

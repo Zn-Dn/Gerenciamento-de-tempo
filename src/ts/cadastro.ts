@@ -76,7 +76,7 @@ button.disabled = true
 
     try{
 
-    let cadastro = await fetch('http://localhost:3000/Cadastro', {
+    let cadastro = await fetch('/Cadastro', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
